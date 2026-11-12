@@ -386,7 +386,7 @@ render();
   var loginBtn = document.getElementById('login-btn');
   if(loginBtn) {
     loginBtn.addEventListener('click', async function(e) {
-      e.preventDefault();
+      e.preventDefault();console.log("Button clicked!");
       
       var emailInput = document.getElementById('email') || document.getElementById('auth-email');
       var passwordInput = document.getElementById('password') || document.getElementById('auth-password');
