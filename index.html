@@ -358,19 +358,60 @@ $('#cpy').onclick=copyCode;
 
 render();
 
-})();</script>
-<script>
+
 (function(){
-  var L=document.getElementById('login'),D=document.getElementById('dash'),KEY='pga_session',mem=null;
-  function get(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return mem}}
-  function set(v){mem=v;try{v?localStorage.setItem(KEY,JSON.stringify(v)):localStorage.removeItem(KEY)}catch(e){}}
+  var L=document.getElementById('login'), D=document.getElementById('dash'), KEY='pga_session', nem=null;
+  function get(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return nem}}
+  function set(v){try{v?localStorage.setItem(KEY,JSON.stringify(v)):localStorage.removeItem(KEY)}catch(e){}}
   function show(auth){L.hidden=auth;D.hidden=!auth;window.scrollTo(0,0)}
-  function greet(u){var n=((u.signup&&u.name)||u.email.split('@')[0]).trim().split(/[\s._-]+/)[0];n=n.charAt(0).toUpperCase()+n.slice(1);var t=document.getElementById('toast');if(!t)return;t.textContent=(u.signup?'Welcome, ':'Welcome back, ')+n+'!';t.classList.add('on');clearTimeout(greet.t);greet.t=setTimeout(function(){t.classList.remove('on')},3500)}
+
   window.PGA={
-    enter:function(u){set({name:u.name||'',email:u.email,at:Date.now()});var p=document.getElementById('password');if(p)p.value='';show(true);greet(u)},
-    exit:function(){set(null);var m=document.getElementById('msg');if(m)m.textContent='';show(false)}
+    enter:function(u){
+      set({name:u.name||'', email:u.email, date:new Date().toISOString()});
+      show(true);
+    },
+    exit:function(){
+      set(null);
+      var msg=document.getElementById('msg');
+      if(msg) msg.textContent='';
+      show(false);
+    }
   };
-  document.getElementById('logout').addEventListener('click',function(){window.PGA.exit()});
+
+  var logoutBtn = document.getElementById('logout');
+  if(logoutBtn) {
+    logoutBtn.addEventListener('click', function(){ window.PGA.exit(); });
+  }
+
+  var loginBtn = document.getElementById('login-btn');
+  if(loginBtn) {
+    loginBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      var emailInput = document.getElementById('email') || document.getElementById('auth-email');
+      var passwordInput = document.getElementById('password') || document.getElementById('auth-password');
+      
+      var email = emailInput ? emailInput.value.trim() : '';
+      var password = passwordInput ? passwordInput.value : '';
+
+      if (!email || !password) {
+        alert('Please enter both email and password.');
+        return;
+      }
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        alert('Login failed: ' + error.message);
+      } else {
+        window.PGA.enter({ email: data.user.email, name: data.user.email });
+      }
+    });
+  }
+
   show(!!get());
 })();
 </script>
