@@ -411,36 +411,55 @@ render();
     logoutBtn.addEventListener('click', function(){ window.PGA.exit(); });
   }
 
-  var loginBtn = document.getElementById('login-btn');
-  if(loginBtn) {
+var loginBtn = document.getElementById('login-btn');
+if(loginBtn) {
     loginBtn.addEventListener('click', async function(e) {
-      e.preventDefault();console.log("Button clicked!");
-      
-      var emailInput = document.getElementById('email') || document.getElementById('auth-email');
-      var passwordInput = document.getElementById('password') || document.getElementById('auth-password');
-      
-      var email = emailInput ? emailInput.value.trim() : '';
-      var password = passwordInput ? passwordInput.value : '';
+        e.preventDefault();
+        console.log("Button clicked!");
 
-      if (!email || !password) {
-        alert('Please enter both email and password.');
-        return;
-      }
+        var emailInput = document.getElementById('email') || document.getElementById('auth-email');
+        var passwordInput = document.getElementById('password') || document.getElementById('auth-password');
+        var nameInput = document.getElementById('name');
+        var nameField = document.getElementById('nameField');
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      });
+        var email = emailInput ? emailInput.value.trim() : '';
+        var password = passwordInput ? passwordInput.value.trim() : '';
+        var name = nameInput ? nameInput.value.trim() : '';
 
-      if (error) {
-        alert('Login failed: ' + error.message);
-      } else {
-        window.PGA.enter({ email: data.user.email, name: data.user.email });
-      }
+        var isSignup = nameField && window.getComputedStyle(nameField).display !== 'none';
+
+        if (!email || !password || (isSignup && !name)) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        if (isSignup) {
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: { data: { full_name: name } }
+            });
+            if (error) {
+                alert('Sign up failed: ' + error.message);
+            } else {
+                alert('Account created successfully!');
+                window.PGA.enter({ name: name, email: email });
+            }
+        } else {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+            if (error) {
+                alert('Login failed: ' + error.message);
+            } else {
+                window.PGA.enter({ name: data.user.email, email: data.user.email });
+            }
+        }
     });
-  }
-  show(get());
-})();
+}
+
+show(get());
 </script>
 </body>
 </html>
