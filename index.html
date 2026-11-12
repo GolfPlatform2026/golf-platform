@@ -385,6 +385,13 @@ async function copyCode(){const t=$('#invcode').textContent;let ok=false;
 $('#cpy').onclick=copyCode;
 
 render();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://xotmazkvmdhzydvgewfn.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_7TEEBNXN06amQToRsgV_1w_zw2fdktV';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 (function(){
