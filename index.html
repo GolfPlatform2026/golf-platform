@@ -175,23 +175,51 @@ body{margin:0;background:#10200f}
   $('switchLink').addEventListener('click', () => {
     signup = !signup;
     $('nameField').style.display = signup ? 'flex' : 'none';
-    $('submit').textContent = signup ? 'SIGN UP' : 'LOG IN';
+    $('login-btn').textContent = signup ? 'SIGN UP' : 'LOG IN';
     $('switchText').textContent = signup ? 'Already a member?' : 'New here?';
     $('switchLink').textContent = signup ? 'Log in' : 'Sign up';
     $('msg').textContent = '';
   });
 
-  $('form').addEventListener('submit', e => {
-    e.preventDefault();
-    const name = $('name').value.trim();
-    const email = $('email').value.trim();
-    const pw = $('password').value;
-    $('msg').style.color = '#ffd9a0';
-    if (signup && !name) return $('msg').textContent = 'Please enter your full name.';
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return $('msg').textContent = 'Please enter a valid email.';
-    if (pw.length < 6) return $('msg').textContent = 'Password must be at least 6 characters.';
-    window.PGA.enter({name:name,email:email,signup:signup});
-  });
+  $('form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = $('name').value.trim();
+        const email = $('email').value.trim();
+        const pw = $('password').value;
+        $('msg').style.color = '#ffd9a0';
+
+        if (signup && !name) return $('msg').textContent = 'Please enter your full name.';
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) return $('msg').textContent = 'Please enter a valid email.';
+        if (pw.length < 6) return $('msg').textContent = 'Password must be at least 6 characters.';
+
+        try {
+            if (signup) {
+                const { data, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: pw,
+                    options: { data: { full_name: name } }
+                });
+                if (error) {
+                    $('msg').textContent = error.message;
+                } else {
+                    alert('Account created successfully!');
+                    window.PGA.enter({ name: name, email: email });
+                }
+            } else {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: pw
+                });
+                if (error) {
+                    $('msg').textContent = error.message;
+                } else {
+                    window.PGA.enter({ name: data.user.email, email: data.user.email });
+                }
+            }
+        } catch (err) {
+            $('msg').textContent = 'Error: ' + err.message;
+        }
+    });
 
 })();</script>
 <script>(function(){
