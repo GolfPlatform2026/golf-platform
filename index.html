@@ -194,7 +194,7 @@ body{margin:0;background:#10200f}
 
         try {
             if (signup) {
-                const { data, error } = await supabase.auth.signUp({
+                const { data, error } = await window.sbClient.auth.signUp({
                     email: email,
                     password: pw,
                     options: { data: { full_name: name } }
@@ -206,7 +206,7 @@ body{margin:0;background:#10200f}
                     window.PGA.enter({ name: name, email: email });
                 }
             } else {
-                const { data, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await window.sbClient.auth.signInWithPassword({
                     email: email,
                     password: pw
                 });
@@ -385,13 +385,14 @@ async function copyCode(){const t=$('#invcode').textContent;let ok=false;
 $('#cpy').onclick=copyCode;
 
 render();
+})();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
 <script>
 const SUPABASE_URL = 'https://xotmazkvmdhzydvgewfn.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_7TEEBNXN06amQToRsgV_1w_zw2fdktV';
 
-window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window.sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 (function(){
@@ -418,55 +419,9 @@ window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     logoutBtn.addEventListener('click', function(){ window.PGA.exit(); });
   }
 
-var loginBtn = document.getElementById('login-btn');
-if(loginBtn) {
-    loginBtn.addEventListener('click', async function(e) {
-        e.preventDefault();
-        console.log("Button clicked!");
-
-        var emailInput = document.getElementById('email') || document.getElementById('auth-email');
-        var passwordInput = document.getElementById('password') || document.getElementById('auth-password');
-        var nameInput = document.getElementById('name');
-        var nameField = document.getElementById('nameField');
-
-        var email = emailInput ? emailInput.value.trim() : '';
-        var password = passwordInput ? passwordInput.value.trim() : '';
-        var name = nameInput ? nameInput.value.trim() : '';
-
-        var isSignup = nameField && window.getComputedStyle(nameField).display !== 'none';
-
-        if (!email || !password || (isSignup && !name)) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-
-        if (isSignup) {
-            const { data, error } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: { data: { full_name: name } }
-            });
-            if (error) {
-                alert('Sign up failed: ' + error.message);
-            } else {
-                alert('Account created successfully!');
-                window.PGA.enter({ name: name, email: email });
-            }
-        } else {
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-            if (error) {
-                alert('Login failed: ' + error.message);
-            } else {
-                window.PGA.enter({ name: data.user.email, email: data.user.email });
-            }
-        }
-    });
-}
 
 show(get());
+})();
 </script>
 </body>
 </html>
