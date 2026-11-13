@@ -148,8 +148,8 @@ body{margin:0;background:#10200f}
   <div class="cardrow">
     <div class="glass card bal wal">
       <span id="bal" hidden>0</span>
-      <div class="wc"><small><svg class="wi g" viewBox="0 0 24 24"><path d="M12 4v10M8 10l4 4 4-4M5 19h14"/></svg>Total deposited</small><b class="wv" id="dep">0.00</b></div>
-      <div class="wc"><small><svg class="wi p" viewBox="0 0 24 24"><path d="M4 16l5-5 4 4 7-8M15 7h5v5"/></svg>Total profit</small><b class="wv" id="prf">0.00</b></div>
+      <div class="wc"><small><svg class="wi g" viewBox="0 0 24 24"><path d="M12 4v10M8 10l4 4 4-4M5 19h14"/></svg>Total deposited</small><b class="wv" id="dep">$00000</b></div>
+      <div class="wc"><small><svg class="wi p" viewBox="0 0 24 24"><path d="M4 16l5-5 4 4 7-8M15 7h5v5"/></svg>Total profit</small><b class="wv" id="prf">$00000</b></div>
     </div>
     <div class="glass card"><h2>Performance <span class="chg" id="lv">● Updating</span></h2><div class="scroll" id="rng"></div><div id="chart"></div></div>
   </div>
@@ -278,9 +278,9 @@ $('#nav').onclick=e=>{const b=e.target.closest('[data-n]');if(!b)return;const k=
 $('#pn').onclick=e=>{const b=e.target.closest('[data-s]');if(b){st.sort=b.dataset.s;st.rank=false;$('#sheet').classList.remove('on');render()}};
 
 /* ---- balance + performance chart ---- */
-let BAL=12480.5;const WAL={deposited:15000,profit:1420.5};const f2=n=>Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+let BAL=12480.5;const WAL={deposited:0,profit:0};const f2=n=>Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 /* feed this from Supabase (sim_wallet_summary): setWallet({balance, deposited, profit}) */
-function setWallet(w){Object.assign(WAL,w);$('#dep').textContent=f2(WAL.deposited);$('#prf').textContent=(WAL.profit<0?'−':'+')+f2(Math.abs(WAL.profit));if('balance' in w){BAL=w.balance;countUp()}}
+function setWallet(w){Object.assign(WAL,w);const m=n=>(n<0?'−':'')+'$'+String(Math.round(Math.abs(n))).padStart(5,'0');$('#dep').textContent=m(WAL.deposited);$('#prf').textContent=m(WAL.profit);if('balance' in w){BAL=w.balance;countUp()}}
 const sets={'1W':[41,43,42,46,45,48,50],'1M':[38,40,39,44,43,47,46,50,52,51,55,57],'3M':[30,34,33,38,41,40,45,48,47,53,56,58]};
 let cur='1W';const W=320,Hh=150,Pd=10,now=()=>new Date().toTimeString().slice(0,5);
 function geom(d){const mn=Math.min(...d),mx=Math.max(...d);
