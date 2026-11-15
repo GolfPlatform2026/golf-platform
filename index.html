@@ -107,6 +107,8 @@ body{margin:0;background:#10200f}
 .fc p{margin:0;font-size:14px;line-height:1.45;color:rgba(255,255,255,.82);white-space:pre-line}.s-dash .toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translate(-50%,-140%);z-index:40;padding:12px 20px;border-radius:99px;transition:transform .4s cubic-bezier(.2,.8,.2,1);font-weight:700;max-width:calc(100% - 24px)}.s-dash .toast.on{transform:translate(-50%,0)}.s-dash .wal{grid-template-columns:1fr 1fr;padding:16px 4px}.s-dash .wal .wc,.s-dash .wal .wc1{padding:0 16px}.s-dash .wal .wi{width:24px;height:24px;padding:5px}.s-dash .wal small{font-size:10px;min-height:0;gap:8px;margin-bottom:2px}.s-dash .wal .wv{margin-top:10px;font-size:clamp(19px,6.2vw,28px)}
 
 .wal .eyeb{margin-left:auto;background:none;border:0;padding:2px;color:var(--mut);cursor:pointer;display:flex;flex:none;-webkit-tap-highlight-color:transparent}.wal .eyeb svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.wal .eyeb .ec{display:none}.wal .eyeb[aria-pressed="true"] .eo{display:none}.wal .eyeb[aria-pressed="true"] .ec{display:block}.wal .wv.hid{position:relative;color:transparent}.wal .wv.hid::after{content:"●●●●●●";position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:.62em;letter-spacing:.18em;line-height:1;color:#fff}
+.s-login .field .pwb{background:none;border:0;padding:0;margin:0;display:flex;flex:none;cursor:pointer;-webkit-tap-highlight-color:transparent}.s-login .field .pwb svg{width:calc(var(--w) * .05);height:calc(var(--w) * .05);fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-bottom:calc(var(--w) * .006)}.s-login .field .pwb .eo{display:none}.s-login .field .pwb[aria-pressed="true"] .eo{display:block}.s-login .field .pwb[aria-pressed="true"] .ec{display:none}
+.fpo{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}.fpo.on{display:flex}.fpc{width:100%;max-width:340px;box-sizing:border-box;padding:22px 20px;border-radius:20px;background:rgba(20,28,16,.92);border:1px solid rgba(255,255,255,.25);color:#fff;font-family:inherit;text-align:center}.fpc h3{margin:0 0 6px;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:#ecd28a}.fpc p{margin:0 0 14px;font-size:13px;color:rgba(255,255,255,.75)}.fpc input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font:inherit;font-size:16px;outline:0}.fpc button{margin-top:12px;width:100%;padding:12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;font:inherit;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}.fpc button.fpx{background:none;border:0;margin-top:6px;color:rgba(255,255,255,.7);letter-spacing:.04em;text-transform:none}.fpc .fpm{min-height:1.2em;margin:10px 0 0;font-size:13px;color:#ffd9a0}
 </style>
 </head>
 <body>
@@ -133,6 +135,7 @@ body{margin:0;background:#10200f}
       <label class="field">
         <svg viewBox="0 0 24 24"><path d="M6 10V8a6 6 0 1 1 12 0v2h1v12H5V10h1zm2 0h8V8a4 4 0 1 0-8 0v2z"/></svg>
         <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+        <button type="button" class="pwb" aria-label="Show password" aria-pressed="false"><svg class="eo" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ec" viewBox="0 0 24 24"><path d="M3 10c3 4 15 4 18 0M6 14l-1.5 2M12 15.5V18M18 14l1.5 2"/></svg></button>
       </label>
 
       <div class="row">
@@ -169,7 +172,7 @@ body{margin:0;background:#10200f}
     <div class="glass card"><h2>Performance <span class="chg" id="lv">● Updating</span></h2><div class="scroll" id="rng"></div><div id="chart"></div></div>
   </div>
   <div class="glass codebox" id="codebox"><div class="ch2"><small>Deposit address</small></div>
-    <div class="crow"><code id="invcode" tabindex="0">CCh1JRPAoJu9xZjQ52cBnhxvsdZiNVdoSgoaC87Ht7rq</code><button class="cpy" id="cpy" aria-label="Copy code" title="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg></button></div>
+    <div class="crow"><code id="invcode" tabindex="0">1111112221233333444aaaaaaaaaa</code><button class="cpy" id="cpy" aria-label="Copy code" title="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg></button></div>
     </div>
   <div class="fd" id="myfeed" hidden><h3>My feed</h3><div id="myfeedList"></div></div>
   <div class="glass mp" id="myprofile" hidden>
@@ -509,5 +512,56 @@ window.sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 })();
 </script>
 <script>(function(){document.querySelectorAll(".wal .eyeb").forEach(function(b){b.addEventListener("click",function(){var v=b.closest(".wc").querySelector(".wv"),h=!v.classList.contains("hid");v.classList.toggle("hid",h);b.setAttribute("aria-pressed",h);b.setAttribute("aria-label",h?"Show amount":"Hide amount")})});var d=document.getElementById("dash");if(d&&window.MutationObserver){new MutationObserver(function(){if(!d.hidden){document.querySelectorAll(".wal .wv").forEach(function(v){v.classList.add("hid")});document.querySelectorAll(".wal .eyeb").forEach(function(b){b.setAttribute("aria-pressed","true");b.setAttribute("aria-label","Show amount")})}}).observe(d,{attributes:true,attributeFilter:["hidden"]})}})();</script>
+<script>(function(){var b=document.querySelector(".pwb"),i=document.getElementById("password");if(!b||!i)return;b.addEventListener("click",function(e){e.preventDefault();var show=i.type==="password";i.type=show?"text":"password";b.setAttribute("aria-pressed",show);b.setAttribute("aria-label",show?"Hide password":"Show password")})})();</script>
+<script>(function(){
+  var sb=window.sbClient; if(!sb) return;
+  function mk(id,title,sub,type,ph,btn,cancel){
+    var o=document.createElement('div'); o.className='fpo'; o.id=id;
+    o.innerHTML='<div class="fpc"><h3>'+title+'</h3><p>'+sub+'</p><input type="'+type+'" placeholder="'+ph+'" autocomplete="'+(type==='email'?'email':'new-password')+'"><button type="button" class="fpg">'+btn+'</button>'+(cancel?'<button type="button" class="fpx">Cancel</button>':'')+'<div class="fpm"></div></div>';
+    document.body.appendChild(o); return o;
+  }
+  var A=mk('fpReset','Reset password','Enter your email and we will send you a reset link.','email','Email ID','Send reset link',true);
+  var B=mk('fpNew','New password','Choose a new password for your account.','password','New password','Save password',false);
+  function q(o,c){return o.querySelector(c)}
+
+  // 1) tap "Forgot password?"
+  var link=document.querySelector('.s-login .row a');
+  if(link) link.addEventListener('click',function(e){
+    e.preventDefault();
+    var em=document.getElementById('email'); q(A,'input').value=em?em.value.trim():'';
+    q(A,'.fpm').textContent=''; A.classList.add('on');
+  });
+  q(A,'.fpx').addEventListener('click',function(){A.classList.remove('on')});
+
+  // 2) send the reset email
+  q(A,'.fpg').addEventListener('click',async function(){
+    var m=q(A,'.fpm'), email=q(A,'input').value.trim();
+    if(!/^\S+@\S+\.\S+$/.test(email)){m.textContent='Please enter a valid email.';return}
+    m.textContent='Sending…';
+    try{
+      var r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+      m.textContent=r.error?r.error.message:'If an account exists for that email, a reset link has been sent.';
+    }catch(err){m.textContent='Error: '+err.message}
+  });
+
+  // 3) user comes back from the email link
+  function showNew(){q(B,'.fpm').textContent='';B.classList.add('on')}
+  sb.auth.onAuthStateChange(function(ev){if(ev==='PASSWORD_RECOVERY')showNew()});
+  if(/type=recovery/.test(location.hash)) showNew();
+
+  // 4) save the new password
+  q(B,'.fpg').addEventListener('click',async function(){
+    var m=q(B,'.fpm'), pw=q(B,'input').value;
+    if(pw.length<6){m.textContent='Password must be at least 6 characters.';return}
+    m.textContent='Saving…';
+    try{
+      var r=await sb.auth.updateUser({password:pw});
+      if(r.error){m.textContent=r.error.message;return}
+      m.textContent='Password updated!';
+      try{history.replaceState(null,'',location.pathname)}catch(e){}
+      setTimeout(function(){B.classList.remove('on');q(B,'input').value=''},1200);
+    }catch(err){m.textContent='Error: '+err.message}
+  });
+})();</script>
 </body>
 </html>
