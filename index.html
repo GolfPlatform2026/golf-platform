@@ -106,6 +106,7 @@ body{margin:0;background:#10200f}
 .fc b{display:block;font-size:17px;margin-bottom:6px}
 .fc p{margin:0;font-size:14px;line-height:1.45;color:rgba(255,255,255,.82);white-space:pre-line}.s-dash .toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translate(-50%,-140%);z-index:40;padding:12px 20px;border-radius:99px;transition:transform .4s cubic-bezier(.2,.8,.2,1);font-weight:700;max-width:calc(100% - 24px)}.s-dash .toast.on{transform:translate(-50%,0)}.s-dash .wal{grid-template-columns:1fr 1fr;padding:16px 4px}.s-dash .wal .wc,.s-dash .wal .wc1{padding:0 16px}.s-dash .wal .wi{width:24px;height:24px;padding:5px}.s-dash .wal small{font-size:10px;min-height:0;gap:8px;margin-bottom:2px}.s-dash .wal .wv{margin-top:10px;font-size:clamp(19px,6.2vw,28px)}
 
+.wal .eyeb{margin-left:auto;background:none;border:0;padding:2px;color:var(--mut);cursor:pointer;display:flex;flex:none;-webkit-tap-highlight-color:transparent}.wal .eyeb svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.wal .eyeb .ec{display:none}.wal .eyeb[aria-pressed="true"] .eo{display:none}.wal .eyeb[aria-pressed="true"] .ec{display:block}.wal .wv.hid{position:relative;color:transparent}.wal .wv.hid::after{content:"••••••";position:absolute;left:0;top:0;color:#fff}
 </style>
 </head>
 <body>
@@ -162,8 +163,8 @@ body{margin:0;background:#10200f}
   <div class="cardrow">
     <div class="glass card bal wal">
       <span id="bal" hidden>0</span>
-      <div class="wc"><small><svg class="wi g" viewBox="0 0 24 24"><path d="M12 4v10M8 10l4 4 4-4M5 19h14"/></svg>Total deposited</small><b class="wv" id="dep">$0.00</b></div>
-      <div class="wc"><small><svg class="wi p" viewBox="0 0 24 24"><path d="M4 16l5-5 4 4 7-8M15 7h5v5"/></svg>Total profit</small><b class="wv" id="prf">$0.00</b></div>
+      <div class="wc"><small><svg class="wi g" viewBox="0 0 24 24"><path d="M12 4v10M8 10l4 4 4-4M5 19h14"/></svg>Total deposited<button type="button" class="eyeb" aria-label="Hide amount" aria-pressed="false"><svg class="eo" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ec" viewBox="0 0 24 24"><path d="M3 10c3 4 15 4 18 0M6 14l-1.5 2M12 15.5V18M18 14l1.5 2"/></svg></button></small><b class="wv" id="dep">$0.00</b></div>
+      <div class="wc"><small><svg class="wi p" viewBox="0 0 24 24"><path d="M4 16l5-5 4 4 7-8M15 7h5v5"/></svg>Total profit<button type="button" class="eyeb" aria-label="Hide amount" aria-pressed="false"><svg class="eo" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ec" viewBox="0 0 24 24"><path d="M3 10c3 4 15 4 18 0M6 14l-1.5 2M12 15.5V18M18 14l1.5 2"/></svg></button></small><b class="wv" id="prf">$0.00</b></div>
     </div>
     <div class="glass card"><h2>Performance <span class="chg" id="lv">● Updating</span></h2><div class="scroll" id="rng"></div><div id="chart"></div></div>
   </div>
@@ -507,5 +508,6 @@ window.sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }).catch(function(){show(false);});
 })();
 </script>
+<script>(function(){document.querySelectorAll(".wal .eyeb").forEach(function(b){b.addEventListener("click",function(){var v=b.closest(".wc").querySelector(".wv"),h=!v.classList.contains("hid");v.classList.toggle("hid",h);b.setAttribute("aria-pressed",h);b.setAttribute("aria-label",h?"Show amount":"Hide amount")})})})();</script>
 </body>
 </html>
