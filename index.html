@@ -463,7 +463,7 @@ window.sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       q('mpName').value=data.display_name||''; q('mpHcp').value=data.handicap==null?'':data.handicap;
       q('mpCourse').value=data.home_course||''; q('mpFav').value=data.favorite_golfer||'';
       const n=q('mpNote'); n.textContent=data.note||''; n.hidden=!data.note;
-      q('myprofile').hidden=false;
+      q('myprofile').hidden=!!(data.display_name&&data.handicap!=null&&data.home_course&&data.favorite_golfer);
     }catch(e){}
   }
   q('mpSave').addEventListener('click',async function(){
@@ -475,6 +475,7 @@ window.sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         home_course:q('mpCourse').value.trim(),favorite_golfer:q('mpFav').value.trim()}).eq('id',u.id);
       st.textContent=r.error?('Could not save: '+r.error.message):'Saved.';
       if(!r.error) q('mpWho').textContent=q('mpName').value.trim()||u.email;
+      if(!r.error&&q('mpName').value.trim()&&h!==''&&q('mpCourse').value.trim()&&q('mpFav').value.trim()) q('myprofile').hidden=true;
     }catch(e){st.textContent='Could not save.';}
   });
   async function loadWallet(){
