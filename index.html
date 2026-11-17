@@ -192,7 +192,7 @@ body{margin:0;background:#10200f}
   <div id="extra"></div>
   <div class="glass bar"><span id="hl">VOL</span><button id="swap" aria-label="Reverse order">⇄</button><span id="hr">BEST</span><button id="rst" aria-label="Reset filters">⛛</button></div>
   <div id="list"></div>
-  <p class="foot">This is a private platform. Access is restricted to authorized users. Sharing your assigned access link is strictly prohibited..</p>
+  <p class="foot">All balances, deposits, investments and profits shown are simulated for a school project. No real financial transactions take place.</p>
   <div class="toast glass" id="toast"></div>
 </div>
 <nav class="glass" id="nav"></nav>
@@ -371,25 +371,23 @@ function openP(i){const p=PL[i];
  SD.map((s,k)=>{const v=p.v[k],d=v-s.avg,g=(s[5]?-d:d)>0;return`<article class="glass row" style="margin-bottom:10px"><div class="top"><div class="ico">${String(k+1).padStart(2,"0")}</div><div class="mid"><h3>${s[0].toUpperCase()}<em>${s[1]}</em></h3><span>Rank #${p.rk[k]} of ${PL.length}</span></div><div class="val"><b>${v.toFixed(s[3])}${s[4]}</b><small>vs field <i class="${g?'up':'dn'}">${d>0?'+':''}${d.toFixed(s[3])}</i></small></div></div><div class="chips"><span>RANK #${p.rk[k]}</span><span>FIELD ${s.avg.toFixed(s[3])}</span><span>RNDS ${p.rd}</span></div></article>`}).join(''))}
 $('#list').onclick=e=>{const b=e.target.closest('[data-g]');if(b)openP(+b.dataset.g)};
 
-/* ---- Golfers board: final leaderboard, World Wide Technology Championship (PGA Tour, Nov 8 2026) ---- */
-const B=`1|Blades Brown|-9|-23|
-2|Ben James|-2|-23|
-3|Michael Kim|-8|-22|
-4|Kensei Hirata|-6|-21|
-5|David Ford|-6|-20|
-T6|Denny McCarthy|-3|-19|
-T6|Alvaro Ortiz|-4|-19|
-T8|Jordan Smith|-9|-18|
-T8|Seamus Power|-6|-18|
-T8|Keith Mitchell|-3|-18|
-T8|Ryan Gerard|-1|-18|23
-T12|Ben Griffin|-7|-17|25
-T12|Sudarshan Yellamaraju|-6|-17|
-T12|Beau Hossler|-6|-17|
-T12|Jay Leng|-5|-17|`.split('\n').map(l=>l.split('|'));
+/* ---- Golfers board: final leaderboard, Austin Championship (PGA Tour, Nov 16 2026) ---- */
+const B=`1|Chad Ramey|-7|-20|
+2|Ben Kohles|-6|-18|
+3|Trace Crowe|-3|-17|
+T4|Hayden Springer|-6|-16|
+T4|Blades Brown|-6|-16|
+T4|Erik van Rooyen|-3|-16|
+T7|Jordan Smith|-5|-15|
+T7|Austin Smotherman|-4|-15|
+T7|Sami Välimäki|-2|-15|
+T10|Joel Dahmen|-7|-14|
+T10|Mac Meissner|-4|-14|
+T10|Kristoffer Ventura|-3|-14|
+T10|Kevin Yu|-3|-14|`.split('\n').map(l=>l.split('|'));
 const tp=s=>s==='-'?'—':s;
 const tc=s=>s.startsWith('-')&&s!=='-'?'up':s.startsWith('+')?'dn':'';
-function board(){return`<div class="glass gh"><b>World Wide Technology Championship</b><span>Official top 15 · Nov 5–8, 2026 · El Cardonal, Los Cabos · Source: pgatour.com</span></div>`+
+function board(){return`<div class="glass gh"><b>Austin Championship</b><span>Top 10 and ties · Nov 12–16, 2026 · Omni Barton Creek, Austin, Texas · Source: Golf News Net</span></div>`+
  B.map((g,i)=>`<article class="glass gr" style="animation-delay:${i*30}ms"><div class="gp">${g[0]}</div><div class="gn"><b>${g[1]}</b><span>Round 4: ${tp(g[2])}</span></div><div class="gs"><b class="${tc(g[3])}">${g[3]}</b><span class="rt">${g[4]?'World #'+g[4]:'—'}</span></div></article>`).join('')}
 /* ---- Luxury dashboard content (real data only) ---- */
 const IC={season:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',course:'<svg viewBox="0 0 24 24"><path d="M7 20V4"/><path d="M7 5h10l-2.5 3.5L17 12H7"/></svg>',sort:'<svg viewBox="0 0 24 24"><path d="M8 5v14M8 5l-3 3M8 5l3 3M16 19V5M16 19l-3-3M16 19l3-3"/></svg>',rank:'<svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0V4zM8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3M12 13v4M8.5 20h7"/></svg>',info:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.01"/></svg>'};
@@ -398,11 +396,13 @@ function extraHtml(){
  const mw=Math.max(...PL.map(p=>p.w)),wn=PL.filter(p=>p.w===mw);
  const cards=[['Season earnings',by(p=>p.m),p=>'$'+(p.m/1e6).toFixed(1)+'M'],['Most top 10s',by(p=>p.t10),p=>p.t10+' finishes'],['Most wins',wn[0],p=>mw+' wins · '+wn.length+' tied']]
   .concat(SD.map((s,k)=>[s[0]==='Scoring avg'?'Scoring average':s[0],PL.find(p=>p.rk[k]===1),p=>p.v[k].toFixed(s[3])+s[4]]));
- const top=[['Scottie Scheffler','USA'],['Rory McIlroy','N. Ireland'],['Matt Fitzpatrick','England'],['Cameron Young','USA'],['Wyndham Clark','USA'],['Chris Gotterup','USA'],['Xander Schauffele','USA'],['Tommy Fleetwood','England'],['Sam Burns','USA'],['Russell Henley','USA']];
- const gl=[['Birdie / Eagle','One stroke / two strokes under par on a hole.'],['GIR','Green in regulation: reaching the green in two strokes fewer than par.'],['Fairway hit %','Share of tee shots on driving holes that finish in the fairway.'],['Sand save','Getting the ball in the hole in two shots from a greenside bunker.'],['Putts per hole','Average number of putts taken on each hole.'],['Handicap Index','A measure of a golfer’s potential ability; lower is better.']];
- return `<section class="sec"><div class="eb">This week on tour</div><h2>World Wide Technology Championship</h2><hr class="hair">
- <div class="glass spot"><p>El Cardonal, Los Cabos · Nov 5–8, 2026<br>Blades Brown finished on 23 under par, level with Ben James on 23 under, with Michael Kim third on 22 under.</p><div class="acts"><button class="pill" id="goBoard">Full leaderboard</button><a class="pill" href="https://www.pgatour.com/news" target="_blank" rel="noopener noreferrer">Official news</a></div></div></section>
- <section class="sec"><div class="eb">2026 season</div><h2>Season leaders</h2><hr class="hair"><div class="lead">${cards.map(c=>`<div class="glass lc"><small>${c[0]}</small><b>${c[1].n}</b><span class="v">${c[2](c[1])}</span></div>`).join('')}</div></section>
+ const top=[['Scottie Scheffler','USA'],['Rory McIlroy','N. Ireland'],['Matt Fitzpatrick','England'],['Cameron Young','USA'],['Wyndham Clark','USA'],['Jon Rahm','Spain'],['Chris Gotterup','USA'],['Tommy Fleetwood','England'],['Xander Schauffele','USA'],['Sam Burns','USA']];
+ const gl=[['Birdie / Eagle','One stroke / two strokes under par on a hole.'],['GIR','Green in regulation: reaching the green in two strokes fewer than par.'],['Fairway hit %','Share of tee shots on driving holes that finish in the fairway.'],['Sand save','Getting the ball in the hole in two shots from a greenside bunker.'],['Putts per hole','Average number of putts taken on each hole.'],['Handicap Index','A measure of a golfer’s potential ability; lower is better.'],['Bogey','One stroke over par on a hole.'],['Albatross','Three strokes under par on a hole, also called a double eagle.'],['Strokes gained','How many shots better or worse a player is than the field average on a type of shot.'],['Cut line','After 36 holes, only players inside the cut (the top 65 and ties on the PGA Tour) play the weekend.']];
+ return `<section class="sec"><div class="eb">This week on tour</div><h2>The RSM Classic</h2><hr class="hair">
+ <div class="glass spot"><p>Sea Island Golf Club (Seaside and Plantation courses), St. Simons Island, Georgia · Nov 19–22, 2026<br>Season finale · $7.4M purse, $1.332M to the winner · Defending champion Sami Välimäki.<br>Last week: Chad Ramey won the Austin Championship by two shots over Ben Kohles.</p><div class="acts"><button class="pill" id="goBoard">Last week’s leaderboard</button><a class="pill" href="https://www.pgatour.com/news" target="_blank" rel="noopener noreferrer">Official news</a></div></div></section>
+ <section class="sec"><div class="eb">2026 season</div><h2>Major champions</h2><hr class="hair"><div class="glass gls"><div><b>Masters</b><span>Rory McIlroy · Augusta National, Georgia · April 9–12</span></div><div><b>PGA Championship</b><span>Aaron Rai · Aronimink, Pennsylvania · May 14–17</span></div><div><b>U.S. Open</b><span>Wyndham Clark · Shinnecock Hills, New York · June 18–21</span></div><div><b>The Open</b><span>Ryan Fox · Royal Birkdale, England · July 16–19</span></div></div></section>
+ <section class="sec"><div class="eb">Around golf</div><h2>Storylines</h2><hr class="hair"><div class="glass gls"><div><b>FedEx Cup champion</b><span>Scottie Scheffler won the Tour Championship at East Lake on Aug 30 for his 22nd PGA Tour title.</span></div><div><b>Youngest winner in 95 years</b><span>Blades Brown, 19, won the World Wide Technology Championship in a playoff over Ben James on Nov 8 at El Cardonal (par 72, 7,363 yards).</span></div><div><b>Women’s golf</b><span>The LPGA season ends with the CME Group Tour Championship in Florida on Nov 22: an $11M purse and $4M to the winner.</span></div></div></section>
+ <section class="sec"><div class="eb">2026 season</div><h2>Leaders among the top 25 earners</h2><hr class="hair"><div class="lead">${cards.map(c=>`<div class="glass lc"><small>${c[0]}</small><b>${c[1].n}</b><span class="v">${c[2](c[1])}</span></div>`).join('')}</div></section>
  <section class="sec"><div class="eb">Official world ranking</div><h2>The top ten</h2><hr class="hair"><div class="glass wr">${top.map((t,i)=>`<div><i>${i+1}</i><b>${t[0]}</b><span>${t[1]}</span></div>`).join('')}</div></section>
  <section class="sec"><div class="eb">Know the game</div><h2>Golf, explained</h2><hr class="hair"><div class="glass gls">${gl.map(g=>`<div><b>${g[0]}</b><span>${g[1]}</span></div>`).join('')}</div></section>`}
 $('#extra').innerHTML=extraHtml();
